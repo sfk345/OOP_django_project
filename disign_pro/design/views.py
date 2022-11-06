@@ -32,7 +32,7 @@ def home(request):
 
 class DeleteOrder(DeleteView):
     model = Order
-    success_url = reverse_lazy('orders')
+    success_url = reverse_lazy('general/orders')
 
 
 # @login_required()
