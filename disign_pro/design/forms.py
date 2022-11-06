@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
-from design.models import User
+from design.models import User, Order
 
 
 class RegisterUserForm(forms.ModelForm):
@@ -60,3 +60,24 @@ class RegisterUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('name', 'login', 'email', 'password', 'password2', 'approval')
+
+
+class CreateOrder(forms.ModelForm):
+    title = forms.CharField(label='Заказ', validators=[RegexValidator('^[а-яА-Я- ]+$',
+                                                                      message='Разрешены только кириллические '
+                                                                              'символы, дефис и '
+                                                                              'пробелы')],
+                            error_messages={
+                                'required': 'Поле обязательно для заполнения', }
+                            )
+    description = forms.CharField(label='Заказ', widget=forms.Textarea, error_messages={
+        'required': 'Поле обязательно для заполнения'})
+    category = forms.ChoiceField(label='Категория')
+    photo = forms.ImageField(label='Фото', widget=forms.ClearableFileInput, error_messages={'required': 'Поле '
+                                                                                                        'обязательно '
+                                                                                                        'для '
+                                                                                                        'заполнения'})
+
+    class Meta:
+        model = Order
+        fields = ('title', 'description', 'category', 'photo')

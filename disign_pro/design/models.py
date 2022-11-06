@@ -42,11 +42,6 @@ class Order(models.Model):
                               default='new', blank=False)
 
 
-class Application(models.Model):
-    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
-    application = models.ForeignKey(Order, verbose_name='Заказ', on_delete=models.CASCADE)
-
-
 class Category(models.Model):
     name = models.CharField(max_length=254, verbose_name='Категория', blank=False)
 

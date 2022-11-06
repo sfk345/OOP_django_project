@@ -2,4 +2,18 @@
 {% block content %}
     <h1>Мои заявки</h1>
 
+    {% if order_list %}
+        {% for order in order_list %}
+            <p><strong>{{ order.time_create }}</strong></p>
+            <p><strong>Заказ: </strong>{{ order.title }}</p>
+            <p><strong>Описание заказа: </strong>{{ order.description }}</p>
+            <p><strong>Категория заказа: </strong>{{ order.category }}</p>
+            <p><strong>Статус заказа: </strong>{{ order.status }}</p>
+        {% if order.status == 'new' %}
+            <p><a href="{% url 'delete_order' order.pk %}">Удалить заказ</a></p>
+        {% endif %}
+        {% endfor %}
+    {% else %}
+        <p><strong>Здесь пока нет заказов!</strong></p>
+    {% endif %}
 {% endblock %}

@@ -12,6 +12,7 @@ urlpatterns = [
 
     path('', home, name='home'),
 
-    path('application/', application, name='application'),
+    path('create_order/', create_order, name='create_order'),
     path('orders/', OrdersByUser.as_view(), name='orders'),
+    path('delete_order/<pk>', DeleteOrder.as_view(), name='delete_order')
 ]
