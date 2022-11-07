@@ -4,3 +4,14 @@ body{
 .start-templates{
     padding: 3rem 1.5rem;
 }
+img{
+    width: 230px;
+}
+#order_list{
+    display: flex;
+    gap: 70px;
+    padding-top: 25px;
+}
+.accepted{
+
+}

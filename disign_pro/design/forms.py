@@ -72,7 +72,6 @@ class CreateOrder(forms.ModelForm):
                             )
     description = forms.CharField(label='Заказ', widget=forms.Textarea, error_messages={
         'required': 'Поле обязательно для заполнения'})
-    category = forms.ChoiceField(label='Категория')
     photo = forms.ImageField(label='Фото', widget=forms.ClearableFileInput, error_messages={'required': 'Поле '
                                                                                                         'обязательно '
                                                                                                         'для '

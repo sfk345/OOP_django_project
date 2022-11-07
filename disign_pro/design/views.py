@@ -26,21 +26,16 @@ def create_order(request):
     return render(request, 'registration/create_order.html', {'form': form})
 
 
-def home(request):
-    return render(request, 'general/home.html')
+class Home(generic.ListView):
+    model = Order
+    template_name = 'general/home.html'
+    paginate_by = 4
 
 
 class DeleteOrder(DeleteView):
+    template_name = 'general/order_delete.html'
     model = Order
-    success_url = reverse_lazy('general/orders')
-
-
-# @login_required()
-# def delete_order(request, pk):
-#     order = Order.objects.filter(user=request.user, pk=pk, status='new')
-#     if order:
-#         order.delete()
-#     return request('orders')
+    success_url = reverse_lazy('orders')
 
 
 class OrdersByUser(LoginRequiredMixin, generic.ListView):
