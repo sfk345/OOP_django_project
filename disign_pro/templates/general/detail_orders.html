@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+<title>Полная информация по заявке</title>
+
+{% block content %}
+    <div class="content-md container">
+        <div class="row margin-b-20">
+            <div class="col-sm-6">
+                <h2>{{ order.name }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7 sm-margin-b-50">
+                <div class="margin-b-30">
+                    <p>{{ order.description }}</p>
+                </div>
+                <p><strong>Категория: </strong> {{ order.category }}</p>
+                <p><strong>Дата создания: </strong> {{ order.time_create }}</p>
+                <p><strong>Статус: </strong> {{ order.get_status_display }}</p>
+                <p><strong>План помещения: </strong></p>
+                <img class="img-responsive" src="{{ order.photo.url }}" alt="Our Office">
+
+
+            </div>
+            {% if order.photo_design %}
+                <div class="col-sm-4 col-sm-offset-1">
+                    <p><strong>Готовый дизайн: </strong></p>
+                    <img class="img-responsive" src="{{ order.photo_design.url }}">
+                </div>
+            {% endif %}
+            {% if order.comment %}
+                <div class="col-sm-4 col-sm-offset-1">
+                    <p><strong>Комментарий исполнителя:</strong> {{ order.comment }}</p>
+                </div>
+            {% endif %}
+        </div>
+
+        {% if order.status == 'new' %}
+            <a class="link" href="{% url 'delete_order' order.pk %}">Удалить заявку</a>
+            <br>
+        {% endif %}
+        {% if perms.app.can_change_status %}
+            <a class="link" href="{% url 'change_of_status' order.pk %}">Обновить статус</a>
+        {% endif %}
+        <!--// end row -->
+    </div>
+{% endblock %}

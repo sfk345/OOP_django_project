@@ -2,18 +2,17 @@
 {% block content %}
     <h1>Главная страница</h1>
 
+    <p>Количество заявок, принятых в работу: {{ num_accepted }}</p>
 
     {% if order_list %}
         <div id="order_list">
         {% for order in order_list %}
-        {% if order.status == 'accepted' %}
             <div class="accepted">
                 <p><strong>{{ order.time_create }}</strong></p>
                 <p><strong>Заказ: </strong>{{ order.title }}</p>
                 <p><strong>Категория заказа: </strong>{{ order.category }}</p>
-                <img src="{{ order.photo.url }}">
+                <img src="{{ order.photo_design.url }}">
             </div>
-        {% endif %}
         {% endfor %}
         </div>
     {% else %}

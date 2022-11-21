@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-<title>Мои заявки</title>
+<title>Список всех заявок</title>
 
 
 {% block content %}
@@ -9,7 +9,11 @@
         <div class="content-md container">
             <div class="row margin-b-40">
                 <div class="col-sm-6">
-                    <h2>Мои заявки</h2>
+                    <h2>Список вcех заявок</h2>
+                    <p>Выберите значение из выпадающего списка и нажмите кнопку "OK" для применения фильтров.</p>
+                    <a href="{% url 'del_category' %}">Удалить категорию</a>
+                    <br>
+                    <a href="{% url 'add_category' %}">Добавить категорию</a>
                 </div>
             </div>
             <!--// end row -->
@@ -18,10 +22,10 @@
 
                 <div class="margin-b-10" style="display: inline-block">
                     <form method="GET">
-                        <select style="display: inline-block" class="form-control" name="status"
-                                value={{ filter.form.status }}
+                        <select style="display: inline-block" class="form-control" name="category"
+                                value={{ filter.form.category }}
                         </select>
-                        <button style="display: inline-block" type="submit" class="btn btn-primary">ОК</button>
+                            <button style="display: inline-block" type="submit" class="btn btn-primary">ОК</button>
                     </form>
                 </div>
             </div>
@@ -29,14 +33,13 @@
                 <div class="col-sm-4 sm-margin-b-50" style="margin-top: 60px">
                     <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".3s">
                         <h3>{{ order.title }}</h3>
-                        <p>Категория: {{ order.category }}</p>
+                        <p>{{ order.name }}</p>
+                        <p>{{ order.category }}</p>
                         <p>{{ order.time_create }}</p>
                         <p>{{ order.get_status_display }}</p>
                         <p><a class="link" href="{% url 'detail_order' order.pk %}">Смотреть всю заявку</a></p>
+                        <p><a class="link" href="{% url 'change_of_status' order.pk %}">Обновить статус</a></p>
                     </div>
-                    {% if order.status == 'new' %}
-                        <p><a href="{% url 'delete_order' order.pk %}">Удалить заказ</a></p>
-                    {% endif %}
                 </div>
             {% endfor %}
 

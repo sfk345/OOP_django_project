@@ -21,12 +21,19 @@
             </li>
         </ul>
         <ul class="navbar-nav">
-            {% if user.is_authenticated %}
+            {% if perms.app.can_change_status %}
+                <li class='nav-item'>
+                    <a class='nav-link' href='{% url "adm_orders" %}'>Все заказы</a>
+                </li>
+                <li class='nav-item'>
+                    <a class='nav-link' href='{% url "logout" %}'>Выйти({{ user.login }})</a>
+                </li>
+            {% elif user.is_authenticated %}
                 <li class='nav-item'>
                     <a class='nav-link' href='{% url "create_order" %}'>Создать заказ</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='{% url "orders" %}'>Мои заказы</a>
+                    <a class='nav-link' href='{% url "myorders" %}'>Мои заказы</a>
                 </li>
                 <li class='nav-item'>
                     <a class='nav-link' href='{% url "logout" %}'>Выйти({{ user.login }})</a>
@@ -39,6 +46,7 @@
                     <a class='nav-link' href='{% url "register" %}'>Зарегистрироваться</a>
                 </li>
             {% endif %}
+
         </ul>
         {% endblock %}
     </div>

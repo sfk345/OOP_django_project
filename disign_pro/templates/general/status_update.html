@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+<title>Смена статуса</title>
+
+{% block content %}
+
+    <div class="section-seperator">
+        <div class="content-md container">
+            <div class="row margin-b-40">
+                <div class="col-sm-6">
+                    <h2>Обновление статуса для заявки "{{ order.title }}"</h2>
+                    <p>Заказчик: {{ order.name }}</p>
+                </div>
+            </div>
+            <!--// end row -->
+
+            <div class="row">
+                <div class="col-md-5 col-sm-7">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                       <div class="margin-b-10">
+                            {{ form.as_p }}
+                        </div>
+                        <button style="margin-top: 30px;" type="submit"
+                                class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Обновить
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <!--// end row -->
+        </div>
+    </div>
+{% endblock %}

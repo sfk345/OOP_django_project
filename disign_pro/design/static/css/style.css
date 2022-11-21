@@ -1,17 +1,22 @@
 body{
     padding-top: 5rem;
 }
-.start-templates{
+.start-template{
     padding: 3rem 1.5rem;
+    display: flex;
+    flex-direction: column;
 }
 img{
-    width: 230px;
+    width: 300px;
 }
 #order_list{
     display: flex;
     gap: 70px;
     padding-top: 25px;
 }
-.accepted{
-
+.img-responsive{
+    width: 400px;
+}
+.bg-dark{
+    padding: 10px 50px;
 }

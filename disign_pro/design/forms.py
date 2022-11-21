@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
-from design.models import User, Order
+from design.models import User, Order, Category
 
 
 class RegisterUserForm(forms.ModelForm):
@@ -80,3 +80,13 @@ class CreateOrder(forms.ModelForm):
     class Meta:
         model = Order
         fields = ('title', 'description', 'category', 'photo')
+
+
+class DeleteCategory(forms.Form):
+    name = forms.ModelChoiceField(queryset=Category.objects.all(), required=True)
+
+
+class StatusUpdate(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['status']

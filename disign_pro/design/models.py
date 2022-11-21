@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.urls import reverse
 from django.utils.crypto import get_random_string
 
 
@@ -22,11 +23,10 @@ class User(AbstractUser):
     USERNAME_FIELD = 'login'
 
     def __str__(self):
-        return str(self.name) + "/" + str(self.login)
+        return self.name
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     STATUS_CHOICES = [
         ('new', 'Новая'),
         ('accepted', 'Принято'),
@@ -41,9 +41,28 @@ class Order(models.Model):
     status = models.CharField(max_length=254, verbose_name='Статус', choices=STATUS_CHOICES,
                               default='new', blank=False)
 
+    class Meta:
+        ordering = ['time_create']
+        permissions = (('can_change_status', 'Менять статус заявки'),)
+
+    def __str__(self):
+        return self.title
+
+    def cat_display(self):
+        return ', '.join([category.name for category in self.category.all()[:3]])
+
+    photo_design = models.ImageField(max_length=254, upload_to=get_name_file, verbose_name="Фото", blank=True)
+    name = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    comment = models.TextField(max_length=1000, verbose_name='Комментарий', blank=True)
+
 
 class Category(models.Model):
     name = models.CharField(max_length=254, verbose_name='Категория', blank=False)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        permissions = (
+            ('can_delete_category', 'Может удалять категории'), ('can_create_category', 'Может добавлять категории'),
+        )
